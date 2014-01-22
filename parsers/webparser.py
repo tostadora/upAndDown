@@ -14,7 +14,7 @@ class WebParser:
     def parse(self, url):
         r = requests.get(url)
         soup = BeautifulSoup(r.text)
-        properparse(soup)
+        self.properparse(soup)
 
     def properparse(self, soup):
         pass
