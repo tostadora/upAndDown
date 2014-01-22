@@ -4,13 +4,14 @@ from parsers.webparser import WebParser
 
 class AsosParser(WebParser):
 
-    def properparse(soup):
+    def properparse(self, soup):
         reslist = soup.find_all("span", class_="product_price_details")
         for el in reslist:
             print("normal: " + el.string)
-            price = el.string
+            self.price.price = el.string
+            self.price.sale = 0
         reslist = soup.find_all("span", class_="previousprice")
         for el in reslist:
             print("rebajas: " + el.string)
-            sale = 1
-            saleprice = el.string
+            self.saleprice.price = el.string
+            self.saleprice.sale = 1
