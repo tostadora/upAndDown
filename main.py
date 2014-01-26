@@ -3,8 +3,11 @@
 import sqlite3
 
 from parsers.asosparser import AsosParser
+from helpers import uadatabase
 
 def main():
+    if not uadatabase.check_database():
+        uadatabase.create_database() 
     sqcon = sqlite3.connect('uadata.db')
     sqcon.row_factory = sqlite3.Row
     sqcur = sqcon.cursor()
