@@ -5,15 +5,16 @@ import helpers.uadatabase
 
 class UADbPlugin(plugins.SimplePlugin):
 
-    conn = None
-
     def __init__(self, bus):
         plugins.SimplePlugin.__init__(self, bus)
         if (not helpers.uadatabase.check_database()):
             helpers.uadatabase.create_database()
 
-    def start(self):
-        self.conn = helpers.uadatabase.connect()
-
-    def stop(self):
-        self.conn.close()
+    def query(self, query):
+        conn = helpers.uadatabase.connect()
+        cursor = conn.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return result
